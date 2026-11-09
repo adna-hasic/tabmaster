@@ -1,11 +1,13 @@
 ﻿using Market.Application.Abstractions;
 using Market.Domain.Entities.Finance;
 using Market.Domain.Entities.Sales;
+using Market.Domain.Entities.Cafe;
 
 namespace Market.Infrastructure.Database;
 
 public partial class DatabaseContext : DbContext, IAppDbContext
 {
+    public DbSet<CafeTableEntity> CafeTables => Set<CafeTableEntity>();
     public DbSet<ProductCategoryEntity> ProductCategories => Set<ProductCategoryEntity>();
     public DbSet<ProductEntity> Products => Set<ProductEntity>();
     public DbSet<PromotionEntity> Promotions => Set<PromotionEntity>();
