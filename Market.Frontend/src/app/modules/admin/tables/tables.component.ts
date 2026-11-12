@@ -1,19 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { BaseListPagedComponent } from '../../../core/components/base-classes/base-list-paged-component';
 import { TablesApiService } from '../../../api-services/tables/tables-api.service';
-import { MatDialog } from '@angular/material/dialog';
-import { TableUpsertComponent } from './table-upsert/table-upsert.component';
+import {
+  ListTablesRequest,
+  ListTablesQueryDto,
+} from '../../../api-services/tables/tables-api.model';
 import { ToasterService } from '../../../core/services/toaster.service';
-import { DialogHelperService } from '../../shared/services/dialog-helper.service';
 import {
   DialogButton,
   DialogType,
 } from '../../shared/models/dialog-config.model';
 import { FitConfirmDialogComponent } from '../../shared/components/fit-confirm-dialog/fit-confirm-dialog.component';
-import {
-  ListTablesRequest,
-  ListTablesQueryDto,
-} from '../../../api-services/tables/tables-api.model';
+import { TableUpsertComponent } from './table-upsert/table-upsert.component';
 
 @Component({
   selector: 'app-tables',
@@ -21,14 +21,13 @@ import {
   templateUrl: './tables.component.html',
   styleUrl: './tables.component.scss',
 })
-
 export class TablesComponent
   extends BaseListPagedComponent<ListTablesQueryDto, ListTablesRequest>
   implements OnInit {
   private api = inject(TablesApiService);
   private dialog = inject(MatDialog);
   private toaster = inject(ToasterService);
-  private dialogHelper = inject(DialogHelperService);
+  private translate = inject(TranslateService);
 
   displayedColumns: string[] = ['tableNumber', 'isEnabled', 'actions'];
 
@@ -51,7 +50,7 @@ export class TablesComponent
       },
       error: (err) => {
         this.stopLoading(
-          'Učitavanje stolova nije uspjelo. Pokušajte ponovo.'
+          this.translate.instant('TABLES.LOAD_LIST_ERROR')
         );
         console.error('Load tables error:', err);
       },
@@ -82,7 +81,9 @@ export class TablesComponent
 
     dialogRef.afterClosed().subscribe((success: boolean) => {
       if (success) {
-        this.toaster.success('Sto je uspješno dodan.');
+        this.toaster.success(
+          this.translate.instant('TABLES.CREATE_SUCCESS')
+        );
         this.loadPagedData();
       }
     });
@@ -101,7 +102,9 @@ export class TablesComponent
 
     dialogRef.afterClosed().subscribe((success: boolean) => {
       if (success) {
-        this.toaster.success('Sto je uspješno izmijenjen.');
+        this.toaster.success(
+          this.translate.instant('TABLES.UPDATE_SUCCESS')
+        );
         this.loadPagedData();
       }
     });
@@ -118,12 +121,20 @@ export class TablesComponent
       panelClass: 'table-delete-dialog',
       data: {
         type: DialogType.WARNING,
-        title: `Obrisati sto ${table.tableNumber}?`,
-        message: 'Sto će biti uklonjen iz liste.',
+        titleKey: 'TABLES.DELETE_TITLE',
+        titleParams: { number: table.tableNumber },
+        messageKey: 'TABLES.DELETE_MESSAGE',
         icon: 'delete_outline',
         buttons: [
-          { type: DialogButton.CANCEL, label: 'Odustani' },
-          { type: DialogButton.DELETE, label: 'Obriši', color: 'warn' },
+          {
+            type: DialogButton.CANCEL,
+            translationKey: 'TABLES.CANCEL',
+          },
+          {
+            type: DialogButton.DELETE,
+            translationKey: 'TABLES.CONFIRM_DELETE',
+            color: 'warn',
+          },
         ],
       },
     });
@@ -140,13 +151,16 @@ export class TablesComponent
 
     this.api.delete(table.id).subscribe({
       next: () => {
-        this.toaster.success('Sto je uspješno obrisan.');
+        this.toaster.success(
+          this.translate.instant('TABLES.DELETE_SUCCESS')
+        );
         this.loadPagedData();
       },
       error: (err) => {
         this.stopLoading();
         this.toaster.error(
-          err?.error?.message || 'Brisanje stola nije uspjelo.'
+          err?.error?.message ||
+          this.translate.instant('TABLES.DELETE_ERROR')
         );
       },
     });

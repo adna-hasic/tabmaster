@@ -6,6 +6,7 @@ import { TablesApiService } from '../../../../api-services/tables/tables-api.ser
 import { ToasterService } from '../../../../core/services/toaster.service';
 import { applyServerErrors } from '../../../../core/forms/server-errors';
 import { TableForm, TableFormService } from '../services/table-form.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface TableDialogData {
   mode: 'create' | 'edit';
@@ -26,6 +27,7 @@ export class TableUpsertComponent implements OnInit {
   private formService = inject(TableFormService);
   private toaster = inject(ToasterService);
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   form?: FormGroup<TableForm>;
   isLoading = false;
@@ -58,9 +60,9 @@ export class TableUpsertComponent implements OnInit {
           this.isLoading = false;
         },
         error: (err) => {
-          this.toaster.error('Učitavanje stola nije uspjelo.');
-          console.error('Load table error:', err);
-          this.dialogRef.close(false);
+          this.toaster.error(
+            this.translate.instant('TABLES.LOAD_ERROR')
+          );
         },
       });
   }
