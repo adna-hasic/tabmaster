@@ -1,11 +1,13 @@
 ﻿using Market.Domain.Entities.Finance;
 using Market.Domain.Entities.Sales;
+using Market.Domain.Entities.Cafe;
 
 namespace Market.Application.Abstractions;
 
 // Application layer
 public interface IAppDbContext
 {
+    DbSet<CafeTableEntity> CafeTables { get; }
     DbSet<ProductEntity> Products { get; }
     DbSet<ProductCategoryEntity> ProductCategories { get; }
     DbSet<PromotionEntity> Promotions { get; }

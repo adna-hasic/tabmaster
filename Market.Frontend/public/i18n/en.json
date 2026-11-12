@@ -233,12 +233,45 @@
       "MY_PROFILE": "My profile",
       "LOGOUT": "Logout",
       "PROMOTIONS": "Promotions",
-      "EXCHANGE_RATES": "Exchange rates"
+      "EXCHANGE_RATES": "Exchange rates",
+      "TABLES": "Tables"
     }
   },
   "ADMIN_SETTINGS": {
     "TITLE": "Settings",
     "EMPTY": "Application settings go here (e.g. company details, default currency, business rules). Personal data and password are on the “My profile” page."
+  },
+  "TABLES": {
+    "TITLE": "Tables",
+    "ADD": "Add table",
+    "NUMBER": "Table number",
+    "STATUS": "Status",
+    "ALL": "All tables",
+    "FILTER_ACTIVE": "Active",
+    "FILTER_INACTIVE": "Inactive",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "ACTIONS": "Actions",
+    "EDIT": "Edit table",
+    "DELETE": "Delete table",
+    "LOADING_LIST": "Loading tables...",
+    "EMPTY": "No tables match the selected filters.",
+    "CREATE_TITLE": "Add table",
+    "EDIT_TITLE": "Edit table",
+    "IS_ENABLED": "Active table",
+    "LOADING": "Loading table...",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "SAVING": "Saving...",
+    "CREATE_SUCCESS": "Table added successfully.",
+    "UPDATE_SUCCESS": "Table updated successfully.",
+    "DELETE_SUCCESS": "Table deleted successfully.",
+    "LOAD_LIST_ERROR": "Unable to load tables. Please try again.",
+    "LOAD_ERROR": "Unable to load the table.",
+    "DELETE_ERROR": "Unable to delete the table.",
+    "DELETE_TITLE": "Delete table {{number}}?",
+    "DELETE_MESSAGE": "The table will be removed from the list.",
+    "CONFIRM_DELETE": "Delete"
   },
   "PRODUCT_CATEGORIES": {
     "TITLE": "Product Categories",

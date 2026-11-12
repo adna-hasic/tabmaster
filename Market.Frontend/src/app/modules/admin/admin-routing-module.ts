@@ -14,12 +14,18 @@ import {PromotionUpsertComponent} from './catalogs/promotions/promotion-upsert/p
 import {OrderEditComponent} from './orders/order-edit/order-edit.component';
 import {ExchangeRatesComponent} from './finance/exchange-rates/exchange-rates.component';
 import {unsavedChangesGuard} from '../shared/guards/unsaved-changes.guard';
+import { TablesComponent } from './tables/tables.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
     children: [
+      // TABLES
+      {
+        path: 'tables',
+        component: TablesComponent,
+      },
       // PRODUCTS
       {
         path: 'products',

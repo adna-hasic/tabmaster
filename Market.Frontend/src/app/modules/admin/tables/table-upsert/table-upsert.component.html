@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{ (isEditMode ? 'TABLES.EDIT_TITLE' : 'TABLES.CREATE_TITLE') | translate }}
+</h2>
+
+<mat-dialog-content>
+  @if (form) {
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" id="table-form">
+    @if (errorMessage) {
+    <div class="error-banner" role="alert">
+      {{ errorMessage }}
+    </div>
+    }
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'TABLES.NUMBER' | translate }}</mat-label>
+
+      <input matInput type="number" formControlName="tableNumber" min="1" max="2147483647" step="1" autocomplete="off"
+        required />
+
+      <mat-error>
+        <app-fit-field-error [control]="form.controls.tableNumber" />
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isEnabled">
+      {{ 'TABLES.IS_ENABLED' | translate }}
+    </mat-checkbox>
+  </form>
+  }
+
+  @if (isLoading && !form) {
+  <div class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>{{ 'TABLES.LOADING' | translate }}</p>
+  </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onCancel()" [disabled]="isLoading">
+    {{ 'TABLES.CANCEL' | translate }}
+  </button>
+
+  <button mat-raised-button color="primary" type="submit" form="table-form"
+    [disabled]="!form || form.invalid || isLoading">
+    {{ (isLoading ? 'TABLES.SAVING' : 'TABLES.SAVE') | translate }}
+  </button>
+</mat-dialog-actions>
