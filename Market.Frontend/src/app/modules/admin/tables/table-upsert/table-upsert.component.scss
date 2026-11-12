@@ -1,0 +1,32 @@
+@use '../../admin-page';
+
+h2[mat-dialog-title] {
+  color: admin-page.$text-primary;
+}
+
+mat-dialog-content {
+  padding-top: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-banner {
+  @include admin-page.error-banner;
+}
+
+.loading-container {
+  @include admin-page.state;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  gap: 8px;
+}

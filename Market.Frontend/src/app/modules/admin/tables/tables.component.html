@@ -2,25 +2,21 @@
   <div class="header-card">
     <h1>Stolovi</h1>
 
+    <button mat-raised-button color="primary" (click)="onCreate()">
+      <mat-icon>add</mat-icon>
+      Dodaj sto
+    </button>
+
     <div class="filters">
       <mat-form-field appearance="outline">
         <mat-label>Broj stola</mat-label>
-        <input
-          matInput
-          type="number"
-          min="1"
-          step="1"
-          [ngModel]="request.tableNumber"
-          (ngModelChange)="onTableNumberChange($event)"
-        />
+        <input matInput type="number" min="1" step="1" [ngModel]="request.tableNumber"
+          (ngModelChange)="onTableNumberChange($event)" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
-        <mat-select
-          [value]="request.onlyEnabled ?? null"
-          (selectionChange)="onStatusChange($event.value)"
-        >
+        <mat-select [value]="request.onlyEnabled ?? null" (selectionChange)="onStatusChange($event.value)">
           <mat-option [value]="null">Svi stolovi</mat-option>
           <mat-option [value]="true">Aktivni</mat-option>
           <mat-option [value]="false">Neaktivni</mat-option>
