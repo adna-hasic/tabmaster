@@ -8,7 +8,7 @@ namespace Market.Application.Modules.Cafe.Tables.Commands.Create
     {
 
         public CreateTableCommandValidator() {
-            RuleFor(x => x.TableNumber).GreaterThan(0).WithMessage("Broj stola mora biti veci od nule!");
+            RuleFor(x => x.TableNumber).GreaterThan(0).WithMessage("Broj stola mora biti veći od nule!");
         }
     }
 }

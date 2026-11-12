@@ -14,7 +14,7 @@ namespace Market.Application.Modules.Cafe.Tables.Commands.Create
 
             if (exists)
             {
-                throw new MarketConflictException($"Sto sa brojem {request.TableNumber} vec postoji!");
+                throw new MarketConflictException($"Sto sa brojem {request.TableNumber} već postoji!");
             }
 
             var table = new CafeTableEntity
