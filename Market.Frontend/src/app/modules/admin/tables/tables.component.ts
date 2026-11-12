@@ -23,7 +23,7 @@ export class TablesComponent
   private dialog = inject(MatDialog);
   private toaster = inject(ToasterService);
 
-  displayedColumns: string[] = ['tableNumber', 'isEnabled'];
+  displayedColumns: string[] = ['tableNumber', 'isEnabled', 'actions'];
 
   constructor() {
     super();
@@ -76,6 +76,25 @@ export class TablesComponent
     dialogRef.afterClosed().subscribe((success: boolean) => {
       if (success) {
         this.toaster.success('Sto je uspješno dodan.');
+        this.loadPagedData();
+      }
+    });
+  }
+
+  onEdit(table: ListTablesQueryDto): void {
+    const dialogRef = this.dialog.open(TableUpsertComponent, {
+      width: '500px',
+      maxWidth: '90vw',
+      disableClose: true,
+      data: {
+        mode: 'edit',
+        tableId: table.id,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((success: boolean) => {
+      if (success) {
+        this.toaster.success('Sto je uspješno izmijenjen.');
         this.loadPagedData();
       }
     });
