@@ -233,7 +233,8 @@
       "MY_PROFILE": "My profile",
       "LOGOUT": "Logout",
       "PROMOTIONS": "Promotions",
-      "EXCHANGE_RATES": "Exchange rates"
+      "EXCHANGE_RATES": "Exchange rates",
+      "TABLES": "Tables"
     }
   },
   "ADMIN_SETTINGS": {

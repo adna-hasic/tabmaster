@@ -39,12 +39,8 @@
         </button>
 
         <mat-menu #langMenu="matMenu">
-          <button
-            mat-menu-item
-            *ngFor="let lang of languages"
-            (click)="switchLanguage(lang.code)"
-            [class.active-lang]="currentLang === lang.code"
-          >
+          <button mat-menu-item *ngFor="let lang of languages" (click)="switchLanguage(lang.code)"
+            [class.active-lang]="currentLang === lang.code">
             <span class="flag-icon">{{ lang.flag }}</span>
             <span>{{ lang.name }}</span>
             <mat-icon *ngIf="currentLang === lang.code" class="check-icon">check</mat-icon>
@@ -76,6 +72,13 @@
       </a>
 
       <mat-divider></mat-divider>
+
+      <a mat-list-item routerLink="/admin/tables" routerLinkActive="active">
+        <mat-icon matListItemIcon>table_restaurant</mat-icon>
+        <span matListItemTitle>
+          {{ 'ADMIN_PANEL.MENU.TABLES' | translate }}
+        </span>
+      </a>
 
       <!-- ORDERS SECTION -->
       <div class="nav-section-title">

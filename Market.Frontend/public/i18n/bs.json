@@ -233,7 +233,8 @@
       "MY_PROFILE": "Moj profil",
       "LOGOUT": "Odjava",
       "PROMOTIONS": "Promocije",
-      "EXCHANGE_RATES": "Kursna lista"
+      "EXCHANGE_RATES": "Kursna lista",
+      "TABLES": "Stolovi"
     }
   },
   "ADMIN_SETTINGS": {
