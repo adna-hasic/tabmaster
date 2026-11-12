@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="header-card">
+    <h1>Stolovi</h1>
+
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Broj stola</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          step="1"
+          [ngModel]="request.tableNumber"
+          (ngModelChange)="onTableNumberChange($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select
+          [value]="request.onlyEnabled ?? null"
+          (selectionChange)="onStatusChange($event.value)"
+        >
+          <mat-option [value]="null">Svi stolovi</mat-option>
+          <mat-option [value]="true">Aktivni</mat-option>
+          <mat-option [value]="false">Neaktivni</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Učitavanje stolova...</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="table-card">
+    <table mat-table [dataSource]="items">
+      <ng-container matColumnDef="tableNumber">
+        <th mat-header-cell *matHeaderCellDef>Broj stola</th>
+        <td mat-cell *matCellDef="let table">
+          {{ table.tableNumber }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="isEnabled">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let table">
+          {{ table.isEnabled ? 'Aktivan' : 'Neaktivan' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          Nema stolova koji odgovaraju odabranim filterima.
+        </td>
+      </tr>
+    </table>
+
+    <app-fit-paginator-bar [vm]="this"></app-fit-paginator-bar>
+  </div>
+</div>

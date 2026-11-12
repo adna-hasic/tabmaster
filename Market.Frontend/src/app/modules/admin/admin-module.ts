@@ -21,7 +21,7 @@ import { OrderEditComponent } from './orders/order-edit/order-edit.component';
 import { ProductAutocompleteComponent } from './orders/order-edit/product-autocomplete/product-autocomplete.component';
 import { ExchangeRatesComponent } from './finance/exchange-rates/exchange-rates.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
-
+import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
     ProductAutocompleteComponent,
     ExchangeRatesComponent,
     AdminSettingsComponent,
+    TablesComponent
   ],
   imports: [
     AdminRoutingModule,

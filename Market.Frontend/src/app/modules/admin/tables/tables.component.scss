@@ -1,0 +1,55 @@
+@use '../admin-page';
+
+.container {
+  @include admin-page.container;
+}
+
+.header-card {
+  @include admin-page.header-card;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  mat-form-field {
+    width: 220px;
+  }
+}
+
+.table-card {
+  @include admin-page.table-card;
+
+  td {
+    color: admin-page.$text-primary;
+  }
+}
+
+.loading-container {
+  @include admin-page.card;
+  @include admin-page.state;
+}
+
+.error-container {
+  @include admin-page.error-banner;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
+
+  .filters {
+    width: 100%;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+:host ::ng-deep app-fit-paginator-bar .page-size-field {
+  width: 120px;
+  min-width: 120px;
+}
