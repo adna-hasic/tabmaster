@@ -4,6 +4,8 @@ import { TablesApiService } from '../../../api-services/tables/tables-api.servic
 import { MatDialog } from '@angular/material/dialog';
 import { TableUpsertComponent } from './table-upsert/table-upsert.component';
 import { ToasterService } from '../../../core/services/toaster.service';
+import { DialogHelperService } from '../../shared/services/dialog-helper.service';
+import { DialogButton } from '../../shared/models/dialog-config.model';
 import {
   ListTablesRequest,
   ListTablesQueryDto,
@@ -22,6 +24,7 @@ export class TablesComponent
   private api = inject(TablesApiService);
   private dialog = inject(MatDialog);
   private toaster = inject(ToasterService);
+  private dialogHelper = inject(DialogHelperService);
 
   displayedColumns: string[] = ['tableNumber', 'isEnabled', 'actions'];
 
@@ -97,6 +100,36 @@ export class TablesComponent
         this.toaster.success('Sto je uspješno izmijenjen.');
         this.loadPagedData();
       }
+    });
+  }
+
+  onDelete(table: ListTablesQueryDto): void {
+    if (this.isLoading) {
+      return;
+    }
+
+    this.dialogHelper.confirmDelete(`Sto ${table.tableNumber}`)
+      .subscribe(result => {
+        if (result?.button === DialogButton.DELETE) {
+          this.performDelete(table);
+        }
+      });
+  }
+
+  private performDelete(table: ListTablesQueryDto): void {
+    this.startLoading();
+
+    this.api.delete(table.id).subscribe({
+      next: () => {
+        this.toaster.success('Sto je uspješno obrisan.');
+        this.loadPagedData();
+      },
+      error: (err) => {
+        this.stopLoading();
+        this.toaster.error(
+          err?.error?.message || 'Brisanje stola nije uspjelo.'
+        );
+      },
     });
   }
 }

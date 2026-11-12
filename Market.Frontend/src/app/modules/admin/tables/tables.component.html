@@ -57,6 +57,10 @@
           <button mat-icon-button color="primary" (click)="onEdit(table)" aria-label="Izmijeni sto">
             <mat-icon>edit</mat-icon>
           </button>
+
+          <button mat-icon-button color="warn" (click)="onDelete(table)" [disabled]="isLoading" aria-label="Obriši sto">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 
