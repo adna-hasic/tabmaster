@@ -5,7 +5,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { TableUpsertComponent } from './table-upsert/table-upsert.component';
 import { ToasterService } from '../../../core/services/toaster.service';
 import { DialogHelperService } from '../../shared/services/dialog-helper.service';
-import { DialogButton } from '../../shared/models/dialog-config.model';
+import {
+  DialogButton,
+  DialogType,
+} from '../../shared/models/dialog-config.model';
+import { FitConfirmDialogComponent } from '../../shared/components/fit-confirm-dialog/fit-confirm-dialog.component';
 import {
   ListTablesRequest,
   ListTablesQueryDto,
@@ -108,12 +112,27 @@ export class TablesComponent
       return;
     }
 
-    this.dialogHelper.confirmDelete(`Sto ${table.tableNumber}`)
-      .subscribe(result => {
-        if (result?.button === DialogButton.DELETE) {
-          this.performDelete(table);
-        }
-      });
+    const dialogRef = this.dialog.open(FitConfirmDialogComponent, {
+      width: '420px',
+      maxWidth: '90vw',
+      panelClass: 'table-delete-dialog',
+      data: {
+        type: DialogType.WARNING,
+        title: `Obrisati sto ${table.tableNumber}?`,
+        message: 'Sto će biti uklonjen iz liste.',
+        icon: 'delete_outline',
+        buttons: [
+          { type: DialogButton.CANCEL, label: 'Odustani' },
+          { type: DialogButton.DELETE, label: 'Obriši', color: 'warn' },
+        ],
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.button === DialogButton.DELETE) {
+        this.performDelete(table);
+      }
+    });
   }
 
   private performDelete(table: ListTablesQueryDto): void {
